@@ -26,8 +26,13 @@ ARG EDOPRO_REF="main"
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     ca-certificates \
-    git curl wget \
-    g++ make cmake pkg-config \
+    git \
+    curl \
+    wget \
+    g++ \
+    make \
+    cmake \
+    pkg-config \
     libboost-system-dev \
     libsqlite3-dev \
     libjsoncpp-dev \
@@ -35,6 +40,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     liblua5.3-dev \
     libevent-dev \
+  && update-ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/edopro
