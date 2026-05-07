@@ -60,3 +60,8 @@ ENV EDOPRO_NODE_ENV=production
 EXPOSE 8787 7911 7922 4000
 
 CMD ["/usr/local/bin/start-full-stack.sh"]
+
+# --- Render default final image ------------------------------------------------
+# Render does not expose a Docker build target field here, so this final stage
+# makes the full-stack bundled image the default deployed image.
+FROM bundled AS final
