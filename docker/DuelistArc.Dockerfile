@@ -25,6 +25,7 @@ ARG EDOPRO_REPO="https://github.com/diangogav/EDOpro-server-ts.git"
 ARG EDOPRO_REF="main"
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    ca-certificates \
     git curl wget \
     g++ make cmake pkg-config \
     libboost-system-dev \
