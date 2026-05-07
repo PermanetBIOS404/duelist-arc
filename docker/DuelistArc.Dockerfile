@@ -6,7 +6,7 @@ COPY server/package.json server/package-lock.json ./server/
 RUN cd server && npm ci --omit=dev
 
 COPY src ./src
-COPY index.html card.html README.md ./  # small top-level assets
+COPY index.html card.html README.md ./
 COPY server/src ./server/src
 COPY server/data ./server/data
 COPY server/db ./server/db
@@ -16,13 +16,9 @@ EXPOSE 8787
 
 CMD ["node", "server/src/index.js"]
 
-# --- Optional duel core bundle (for "Browser CPU" demo mode) ------------------
-# Build the `bundled` target to vendor EDOpro-server-ts + CoreIntegrator into the
-# Duelist ARC image (no separate host checkout needed).
-#
-# Example:
-#   docker build -f docker/DuelistArc.Dockerfile --target bundled \
-#     --build-arg EDOPRO_REF=... -t duelist-arc:bundled .
+# --- Full-stack bundle for Render single-service deployment -------------------
+# This target vendors EDOpro-server-ts + CoreIntegrator into the Duelist ARC image
+# and starts both the internal EDOPro service and the public Duelist ARC server.
 FROM app AS bundled
 
 ARG EDOPRO_REPO="https://github.com/diangogav/EDOpro-server-ts.git"
@@ -46,7 +42,21 @@ RUN git clone --recursive --depth 1 --branch "${EDOPRO_REF}" "${EDOPRO_REPO}" re
 WORKDIR /opt/edopro/repo
 RUN bash clone_repositories.sh \
   && bash setup_resources.sh \
-  && bash build_core_integrator.sh
+  && bash build_core_integrator.sh \
+  && npm ci --omit=dev
 
-# Make the bundled core visible to Duelist ARC.
+COPY docker/start-full-stack.sh /usr/local/bin/start-full-stack.sh
+RUN chmod +x /usr/local/bin/start-full-stack.sh
+
 ENV EDOPRO_SERVER_TS_ROOT=/opt/edopro/repo
+ENV EDOPRO_HTTP_URL=http://127.0.0.1:7922
+ENV EDOPRO_HOST=127.0.0.1
+ENV EDOPRO_PORT=7911
+ENV HOST_PORT=7911
+ENV HTTP_PORT=7922
+ENV WEBSOCKET_PORT=4000
+ENV EDOPRO_NODE_ENV=production
+
+EXPOSE 8787 7911 7922 4000
+
+CMD ["/usr/local/bin/start-full-stack.sh"]
