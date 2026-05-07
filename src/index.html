@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)" />
+    <meta name="description" content="Duelist ARC — Enter the Arc. Become a Legend." />
+    <meta property="og:title" content="Duelist ARC" />
+    <meta property="og:description" content="Enter the Arc. Become a Legend." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/logo.png" />
+    <meta name="twitter:card" content="summary" />
+    <title>Duelist ARC</title>
+    <link rel="stylesheet" href="css/style.css?v=56">
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="apple-touch-icon" href="/assets/logo.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+</head>
+<body>
+    <header class="header">
+        <div class="brand" id="brand">
+            <button class="brand-mascot" type="button" aria-label="Open mascot">
+                <img
+                    class="brand-mark"
+                    src="assets/mascot.png"
+                    alt="Duelist ARC mascot"
+                    loading="eager"
+                    onerror="this.onerror=null;this.src='assets/mascot-placeholder.svg';"
+                />
+            </button>
+            <div class="brand-popover" aria-hidden="true">
+                <div class="brand-popover-inner">
+                    <img
+                        class="brand-popover-img"
+                        src="assets/mascot.png"
+                        alt=""
+                        loading="lazy"
+                        onerror="this.onerror=null;this.src='assets/mascot-placeholder.svg';"
+                    />
+                    <div class="brand-popover-meta">
+                        <div class="brand-popover-title">Duelist ARC — Mascot</div>
+                        <div class="brand-popover-sub muted">Hover to preview • Click to open</div>
+                    </div>
+                </div>
+            </div>
+            <div class="brand-text">
+                <h1>Duelist ARC</h1>
+                <div class="brand-sub">Enter the Arc. Become a Legend.</div>
+            </div>
+        </div>
+        <div class="toolbar">
+            <label class="search">
+                <span class="sr-only">Search cards</span>
+                <input id="search" type="search" placeholder="Search cards…" autocomplete="off" />
+            </label>
+            <label class="select">
+                <span class="sr-only">Dataset</span>
+                <select id="dataset-select" title="Dataset">
+                    <option value="cards/sample-cards.json">Dataset: Sample</option>
+                    <option value="/cards/all.json">Dataset: Server (All cards)</option>
+                </select>
+            </label>
+            <input id="dataset-file" type="file" accept="application/json,.json" class="sr-only" />
+            <button id="dataset-load" class="btn btn-small btn-primary" type="button" title="Load a local JSON dataset">Load JSON</button>
+            <label class="select">
+                <span class="sr-only">Filter by type</span>
+                <select id="type-filter">
+                    <option value="">All types</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">Filter by attribute</span>
+                <select id="attr-filter">
+                    <option value="">All attributes</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">Filter by race</span>
+                <select id="race-filter">
+                    <option value="">All races</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">Filter by archetype</span>
+                <select id="arch-filter">
+                    <option value="">All archetypes</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">Filter by kind</span>
+                <select id="kind-filter" title="Kind">
+                    <option value="">All kinds</option>
+                    <option value="monster">Monster</option>
+                    <option value="spell">Spell</option>
+                    <option value="trap">Trap</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">Filter by monster tag</span>
+                <select id="tag-filter" title="Subtype/tag">
+                    <option value="">All tags</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">Filter by spell/trap subtype</span>
+                <select id="st-filter" title="Spell/Trap subtype">
+                    <option value="">All S/T</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">TCG banlist filter</span>
+                <select id="ban-tcg" title="TCG banlist">
+                    <option value="">TCG: Any</option>
+                    <option value="forbidden">TCG: Forbidden</option>
+                    <option value="limited">TCG: Limited</option>
+                    <option value="semi-limited">TCG: Semi</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">OCG banlist filter</span>
+                <select id="ban-ocg" title="OCG banlist">
+                    <option value="">OCG: Any</option>
+                    <option value="forbidden">OCG: Forbidden</option>
+                    <option value="limited">OCG: Limited</option>
+                    <option value="semi-limited">OCG: Semi</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">GOAT banlist filter</span>
+                <select id="ban-goat" title="GOAT banlist">
+                    <option value="">GOAT: Any</option>
+                    <option value="forbidden">GOAT: Forbidden</option>
+                    <option value="limited">GOAT: Limited</option>
+                    <option value="semi-limited">GOAT: Semi</option>
+                </select>
+            </label>
+            <label class="num-filter">
+                <span class="sr-only">Level min</span>
+                <input id="level-min" inputmode="numeric" type="number" placeholder="Lv ≥" min="0" />
+            </label>
+            <label class="num-filter">
+                <span class="sr-only">Level max</span>
+                <input id="level-max" inputmode="numeric" type="number" placeholder="Lv ≤" min="0" />
+            </label>
+            <label class="num-filter">
+                <span class="sr-only">ATK min</span>
+                <input id="atk-min" inputmode="numeric" type="number" placeholder="ATK ≥" min="0" />
+            </label>
+            <label class="num-filter">
+                <span class="sr-only">ATK max</span>
+                <input id="atk-max" inputmode="numeric" type="number" placeholder="ATK ≤" min="0" />
+            </label>
+            <label class="num-filter">
+                <span class="sr-only">DEF min</span>
+                <input id="def-min" inputmode="numeric" type="number" placeholder="DEF ≥" min="0" />
+            </label>
+            <label class="num-filter">
+                <span class="sr-only">DEF max</span>
+                <input id="def-max" inputmode="numeric" type="number" placeholder="DEF ≤" min="0" />
+            </label>
+            <label class="select">
+                <span class="sr-only">Favorites</span>
+                <select id="fav-filter">
+                    <option value="">All cards</option>
+                    <option value="fav">Favorites</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">Sort</span>
+                <select id="sort">
+                    <option value="name_asc">Sort: Name (A→Z)</option>
+                    <option value="name_desc">Sort: Name (Z→A)</option>
+                    <option value="level_desc">Sort: Level (High→Low)</option>
+                    <option value="atk_desc">Sort: ATK (High→Low)</option>
+                    <option value="fav_then_name">Sort: Favorites</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">View density</span>
+                <select id="view-mode" title="View density">
+                    <option value="comfortable">View: Comfortable</option>
+                    <option value="compact">View: Compact</option>
+                </select>
+            </label>
+            <label class="select">
+                <span class="sr-only">Thumbnail size</span>
+                <select id="thumb-size" title="Thumbnail size">
+                    <option value="m">Thumb: Medium</option>
+                    <option value="s">Thumb: Small</option>
+                    <option value="l">Thumb: Large</option>
+                </select>
+            </label>
+            <label class="toggle" title="Toggle quick preview on hover/focus">
+                <input id="preview-toggle" type="checkbox" checked />
+                <span>Preview</span>
+            </label>
+            <label class="select">
+                <span class="sr-only">Layout profile</span>
+                <select id="layout-select" title="Layout profile"></select>
+            </label>
+            <button id="layout-save" class="btn btn-small btn-primary" type="button" title="Save current UI layout">Save layout</button>
+            <button id="layout-del" class="btn btn-small" type="button" title="Delete selected layout">Delete layout</button>
+            <button id="clear" class="btn btn-primary" type="button">Clear</button>
+            <div id="count" class="count" aria-live="polite"></div>
+            <div id="dataset-status" class="count" aria-live="polite"></div>
+            <details id="dataset-details" class="dataset-details">
+                <summary class="btn btn-small" title="Show dataset details">Dataset details</summary>
+                <div id="dataset-details-body" class="dataset-details-body"></div>
+            </details>
+            <details id="dataset-tools" class="dataset-details">
+                <summary class="btn btn-small" title="Manage saved datasets">Dataset tools</summary>
+                <div class="dataset-details-body">
+                    <div class="row">
+                        <button id="dataset-save" class="btn btn-small btn-primary" type="button">Save copy</button>
+                        <button id="dataset-rename" class="btn btn-small" type="button">Rename</button>
+                        <button id="dataset-delete" class="btn btn-small" type="button">Delete</button>
+                        <button id="dataset-export" class="btn btn-small btn-primary" type="button">Export</button>
+                    </div>
+                    <div class="muted">Saved datasets are stored in your browser (localStorage).</div>
+                </div>
+            </details>
+            <details id="search-help" class="dataset-details">
+                <summary class="btn btn-small" title="Search operator help">Search help</summary>
+                <div class="dataset-details-body">
+                    <div class="title">Search operators</div>
+                    <ul>
+                        <li><span class="muted">Text:</span> <code>"blue-eyes"</code></li>
+                        <li><span class="muted">Kind:</span> <code>kind:monster</code></li>
+                        <li><span class="muted">Tag:</span> <code>tag:link</code></li>
+                        <li><span class="muted">S/T:</span> <code>st:quick-play</code></li>
+                        <li><span class="muted">Stats:</span> <code>atk&gt;=2000</code> <code>def&lt;1500</code> <code>lvl=4</code></li>
+                        <li><span class="muted">Ban:</span> <code>tcg:forbidden</code> <code>ocg:limited</code> <code>goat:semi-limited</code></li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+        <div id="quick-chips" class="chips" aria-label="Quick filters"></div>
+        <div id="active-filters" class="chips chips-active" aria-label="Active filters"></div>
+    </header>
+
+    <div id="view-tabs" class="view-tabs" aria-label="App view">
+        <button id="view-tab-demo" class="btn btn-small" type="button" hidden>Demo</button>
+        <button id="view-tab-select" class="btn btn-small btn-primary" type="button">Selection</button>
+        <button id="view-tab-duel" class="btn btn-small" type="button">Duel</button>
+        <div class="spacer"></div>
+        <label class="toggle" title="Enable a streamlined, demo-friendly UI">
+            <input id="demo-mode" type="checkbox" />
+            <span>Demo mode</span>
+        </label>
+        <button id="demo-tour-open" class="btn btn-small" type="button" title="Open the demo tour">Tour</button>
+        <button id="demo-settings-open" class="btn btn-small" type="button" title="Open demo settings">Settings</button>
+    </div>
+
+    <div id="demo-build-banner" class="demo-build-banner" hidden></div>
+    <div id="static-build-banner" class="demo-build-banner" hidden>
+        <strong>Static launch build:</strong> accounts and server-powered CPU duels are coming soon. Card browsing, deck tools, and roadmap previews work fully in-browser today.
+    </div>
+
+    <main id="view-demo" class="demo-view" hidden>
+        <div class="demo-hero">
+            <div class="demo-hero-inner">
+                <div class="demo-hero-left">
+                    <div class="demo-kicker">Playable Demo</div>
+                    <h2 class="demo-title">Duel a CPU. Test a deck. Get ready for online duels.</h2>
+                    <div class="demo-sub">
+                        This is the <span id="demo-build-inline"></span> — CPU-first gameplay with fast deck testing. Online PvP is coming soon.
+                    </div>
+                    <div class="demo-cta">
+                        <button id="demo-cta-upload" class="btn btn-primary" type="button">Upload a deck</button>
+                        <button id="demo-cta-sample" class="btn btn-small btn-primary" type="button">Load a sample</button>
+                        <button id="demo-cta-draw" class="btn btn-small" type="button">Shuffle + Draw 5</button>
+                        <button id="demo-cta-cpu" class="btn btn-small" type="button">Start CPU duel</button>
+                        <button id="demo-cta-realms" class="btn btn-small" type="button">Expanding Realms</button>
+                        <button id="demo-cta-launch-skeleton" class="btn btn-small" type="button" title="Jump to the launch-day roadmap skeleton">Roadmap Skeleton</button>
+                        <a class="btn btn-small" href="dev.html" title="Learn about the project and roadmap">Developer page</a>
+                        <button id="demo-feedback" class="btn btn-small" type="button" title="Copy a feedback/bug report template">Feedback</button>
+                    </div>
+                    <div class="demo-mini muted">
+                        Tip: click <strong>Start CPU duel</strong> first — it auto-loads a sample if your deck isn’t ready.
+                    </div>
+                </div>
+                <div class="demo-hero-right">
+                    <div class="demo-card">
+                        <div class="demo-card-title">What you can do right now</div>
+                        <ul>
+                            <li>Upload a deck (.ydk / .json / list)</li>
+                            <li>Shuffle + draw 5 instantly</li>
+                            <li>Duel a CPU (in-browser)</li>
+                        </ul>
+                    </div>
+                    <div class="demo-card">
+                        <div class="demo-card-title">What’s new</div>
+                        <ul>
+                            <li>Demo landing + guided tour</li>
+                            <li>Sample decks + instant Draw 5</li>
+                            <li>Shareable demo links</li>
+                        </ul>
+                    </div>
+                    <div class="demo-card">
+                        <div class="demo-card-title">Coming soon</div>
+                        <ul>
+                            <li>Online dueling (PvP)</li>
+                            <li>Friend duels + matchmaking</li>
+                            <li>In-browser duel field UI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="demo-sections">
+            <div class="demo-section">
+                <div class="demo-section-title">Start here</div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">1) Load a deck</div>
+                        <div class="demo-tile-body">Upload your deck or load a sample. Best experience uses the full server dataset for card name matching.</div>
+                        <div class="demo-tile-actions">
+                            <button id="demo-tile-upload" class="btn btn-small btn-primary" type="button">Upload</button>
+                            <button id="demo-tile-sample" class="btn btn-small" type="button">Sample</button>
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">2) Draw an opening hand</div>
+                        <div class="demo-tile-body">Shuffle + draw 5 to immediately interact with your deck. Mulligan if needed.</div>
+                        <div class="demo-tile-actions">
+                            <button id="demo-tile-draw" class="btn btn-small btn-primary" type="button">Draw 5</button>
+                            <button id="demo-tile-mull" class="btn btn-small" type="button">Mulligan</button>
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">3) Duel a CPU</div>
+                        <div class="demo-tile-body">Start an in-browser CPU duel powered by a server-hosted core. PvP comes next.</div>
+                        <div class="demo-tile-actions">
+                            <button id="demo-tile-cpu" class="btn btn-small btn-primary" type="button">Start CPU duel</button>
+                            <button id="demo-tile-tour" class="btn btn-small" type="button">Tour</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="demo-realms" class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">Expanding Realms</div>
+                <div class="demo-sub" style="margin-bottom:10px;">
+                    Duelist ARC is growing into a multi-world card &amp; browser gaming platform. Explore what’s playable today and what’s coming next.
+                </div>
+                <div class="demo-grid demo-grid-realms">
+                    <div class="demo-tile realm-tile realm-playable" data-accent="ygo">
+                        <div class="realm-head">
+                            <div class="demo-tile-title"><span class="realm-icon" aria-hidden="true">◆</span>Yu-Gi-Oh</div>
+                            <div class="realm-badges">
+                                <span class="pill pill-ok">Playable Demo Available</span>
+                            </div>
+                        </div>
+                        <div class="demo-tile-body">Deck builder, instant testing, and CPU-first duels — built to evolve into online play.</div>
+                        <div class="realm-sub muted">The flagship realm.</div>
+                        <div class="demo-tile-actions">
+                            <button class="btn btn-small btn-primary" type="button" data-action="realm" data-realm="ygo">Enter Realm</button>
+                        </div>
+                    </div>
+                    <div class="demo-tile realm-tile" data-accent="pokemon">
+                        <div class="realm-head">
+                            <div class="demo-tile-title"><span class="realm-icon" aria-hidden="true">✦</span>Pokémon TCG</div>
+                            <div class="realm-badges">
+                                <span class="pill pill-warn">Coming Soon</span>
+                            </div>
+                        </div>
+                        <div class="demo-tile-body">A bright, fast deck flow with modern UX — built for casual play and competitive prep.</div>
+                        <div class="realm-sub muted">Planned realm expansion.</div>
+                        <div class="demo-tile-actions">
+                            <button class="btn btn-small" type="button" data-action="realm" data-realm="pokemon">Preview Vision</button>
+                        </div>
+                    </div>
+                    <div class="demo-tile realm-tile" data-accent="onepiece">
+                        <div class="realm-head">
+                            <div class="demo-tile-title"><span class="realm-icon" aria-hidden="true">⚓</span>One Piece Card Game</div>
+                            <div class="realm-badges">
+                                <span class="pill pill-warn">In Development</span>
+                            </div>
+                        </div>
+                        <div class="demo-tile-body">Crisp battlefield readability, tight turn pacing, and streamer-friendly presentation.</div>
+                        <div class="realm-sub muted">In development.</div>
+                        <div class="demo-tile-actions">
+                            <button class="btn btn-small" type="button" data-action="realm" data-realm="onepiece">Preview Vision</button>
+                        </div>
+                    </div>
+                    <div class="demo-tile realm-tile" data-accent="lorcana">
+                        <div class="realm-head">
+                            <div class="demo-tile-title"><span class="realm-icon" aria-hidden="true">❖</span>Disney Lorcana</div>
+                            <div class="realm-badges">
+                                <span class="pill pill-warn">Planned Expansion</span>
+                            </div>
+                        </div>
+                        <div class="demo-tile-body">An enchanting UI with gallery-grade art browsing and thoughtful deck tools.</div>
+                        <div class="realm-sub muted">Planned realm expansion.</div>
+                        <div class="demo-tile-actions">
+                            <button class="btn btn-small" type="button" data-action="realm" data-realm="lorcana">Preview Vision</button>
+                        </div>
+                    </div>
+                    <div class="demo-tile realm-tile" data-accent="mtg">
+                        <div class="realm-head">
+                            <div class="demo-tile-title"><span class="realm-icon" aria-hidden="true">✧</span>Magic: The Gathering</div>
+                            <div class="realm-badges">
+                                <span class="pill pill-warn">Coming Soon</span>
+                            </div>
+                        </div>
+                        <div class="demo-tile-body">Power-user deck workflows, format-aware tools, and a clean play surface.</div>
+                        <div class="realm-sub muted">Planned realm expansion.</div>
+                        <div class="demo-tile-actions">
+                            <button class="btn btn-small" type="button" data-action="realm" data-realm="mtg">Preview Vision</button>
+                        </div>
+                    </div>
+                    <div class="demo-tile realm-tile" data-accent="hololive">
+                        <div class="realm-head">
+                            <div class="demo-tile-title"><span class="realm-icon" aria-hidden="true">✿</span>Hololive Official Card Game</div>
+                            <div class="realm-badges">
+                                <span class="pill pill-warn">In Development</span>
+                            </div>
+                        </div>
+                        <div class="demo-tile-body">A performance-first, creator-forward experience with personality and polish.</div>
+                        <div class="realm-sub muted">In development.</div>
+                        <div class="demo-tile-actions">
+                            <button class="btn btn-small" type="button" data-action="realm" data-realm="hololive">Preview Vision</button>
+                        </div>
+                    </div>
+                    <div class="demo-tile realm-tile realm-hub" data-accent="emulator">
+                        <div class="realm-head">
+                            <div class="demo-tile-title"><span class="realm-icon" aria-hidden="true">▣</span>Emulator Hub</div>
+                            <div class="realm-badges">
+                                <span class="pill pill-warn">Planned Expansion</span>
+                            </div>
+                        </div>
+                        <div class="demo-tile-body">Browser gaming experiments, retro preservation energy, and a launchpad for expanding experiences.</div>
+                        <div class="realm-sub muted">A future hub beyond TCGs.</div>
+                        <div class="demo-tile-actions">
+                            <button class="btn btn-small" type="button" data-action="realm" data-realm="emulator">Preview Vision</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">Roadmap</div>
+                <div class="demo-sub" style="margin-bottom:10px;">A high-level arc of what’s next — built one stable step at a time.</div>
+                <div class="demo-grid">
+                    <div class="demo-tile realm-roadmap">
+                        <div class="realm-head">
+                            <div class="demo-tile-title">Phase 1 — CPU Dueling</div>
+                            <div class="realm-badges"><span class="pill pill-ok">Playable</span></div>
+                        </div>
+                        <div class="demo-tile-body">Fast deck iteration + CPU-first duels and stability work for early public demos.</div>
+                    </div>
+                    <div class="demo-tile realm-roadmap">
+                        <div class="realm-head">
+                            <div class="demo-tile-title">Phase 2 — Online Multiplayer</div>
+                            <div class="realm-badges"><span class="pill pill-warn">In Progress</span></div>
+                        </div>
+                        <div class="demo-tile-body">Real-time PvP, friend duels, and match flows designed for quick rematches.</div>
+                    </div>
+                    <div class="demo-tile realm-roadmap">
+                        <div class="realm-head">
+                            <div class="demo-tile-title">Phase 3 — Profiles &amp; Cosmetics</div>
+                            <div class="realm-badges"><span class="pill pill-warn">Planned</span></div>
+                        </div>
+                        <div class="demo-tile-body">Handles, profiles, season identity, and tasteful cosmetics with zero pay-to-win.</div>
+                    </div>
+                    <div class="demo-tile realm-roadmap">
+                        <div class="realm-head">
+                            <div class="demo-tile-title">Phase 4 — Cross‑TCG Expansion</div>
+                            <div class="realm-badges"><span class="pill pill-warn">Planned</span></div>
+                        </div>
+                        <div class="demo-tile-body">More realms, shared account identity, and unified deck tooling across worlds.</div>
+                    </div>
+                    <div class="demo-tile realm-roadmap">
+                        <div class="realm-head">
+                            <div class="demo-tile-title">Phase 5 — Emulator Hub</div>
+                            <div class="realm-badges"><span class="pill pill-warn">Planned</span></div>
+                        </div>
+                        <div class="demo-tile-body">A curated hub for browser gaming experiments and preservation-minded experiences.</div>
+                    </div>
+                </div>
+            </div>
+            <div id="demo-launch-skeleton" class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">Launch Skeleton</div>
+                <div class="demo-sub" style="margin-bottom:10px;">
+                    Today’s launch build includes previews and placeholder pages for what’s coming next (no purchases, no real rewards backend, no email recovery yet).
+                </div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Profiles &amp; Account</div>
+                        <div class="demo-tile-body">Custom profile, account settings, and email/account system planning — skeleton UI only.</div>
+                        <div class="demo-tile-actions">
+                            <a class="btn btn-small btn-primary" href="profile.html">Profile</a>
+                            <a class="btn btn-small" href="account.html">Account</a>
+                            <a class="btn btn-small" href="settings.html">Settings</a>
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Cosmetics &amp; Season Zero</div>
+                        <div class="demo-tile-body">Inventory skeleton, free starter cosmetics preview (Red/Blue/Green), and Rewards Pass sneak peek.</div>
+                        <div class="demo-tile-actions">
+                            <a class="btn btn-small btn-primary" href="cosmetics.html">Cosmetics</a>
+                            <a class="btn btn-small" href="rewards-pass.html">Rewards Pass</a>
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Coming-Soon Realms</div>
+                        <div class="demo-tile-body">Emulator Hub and multi‑TCG expansion previews (Pokémon, One Piece, Lorcana, MTG, Hololive).</div>
+                        <div class="demo-tile-actions">
+                            <a class="btn btn-small btn-primary" href="emulator-hub.html">Emulator Hub</a>
+                            <a class="btn btn-small" href="multi-tcg.html">Multi‑TCG</a>
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Support &amp; Status</div>
+                        <div class="demo-tile-body">Report an Issue, Suggestions &amp; Feedback, and System Status / Site Issues.</div>
+                        <div class="demo-tile-actions">
+                            <a class="btn btn-small btn-primary" href="report-issue.html">Report</a>
+                            <a class="btn btn-small" href="feedback.html">Feedback</a>
+                            <a class="btn btn-small" href="status.html">Status</a>
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">New Format (Yu-Gi-Oh)</div>
+                        <div class="demo-tile-body">A teaser section for the Duelist ARC format trailer + rules (coming soon).</div>
+                        <div class="demo-tile-actions">
+                            <a class="btn btn-small btn-primary" href="new-format.html">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">Screenshots</div>
+                <div class="demo-sub" style="margin-bottom:10px;">A quick look at what this demo includes today.</div>
+                <div class="demo-grid demo-grid-3">
+                    <div class="demo-tile demo-shot">
+                        <img class="demo-shot-img" src="assets/demo-shot-decktest.svg" alt="Screenshot: Deck Test (Instant)" loading="lazy" />
+                        <div class="demo-shot-cap">
+                            <div class="demo-tile-title">Deck Test (Instant)</div>
+                            <div class="demo-tile-body">Upload a deck and draw 5 immediately (works even if CPU duel services are offline).</div>
+                        </div>
+                    </div>
+                    <div class="demo-tile demo-shot">
+                        <img class="demo-shot-img" src="assets/demo-shot-cpuduel.svg" alt="Screenshot: CPU Duel demo flow" loading="lazy" />
+                        <div class="demo-shot-cap">
+                            <div class="demo-tile-title">CPU Duel (Demo)</div>
+                            <div class="demo-tile-body">Server-hosted CPU duels when EDOPro + WindBot are configured.</div>
+                        </div>
+                    </div>
+                    <div class="demo-tile demo-shot">
+                        <img class="demo-shot-img" src="assets/demo-shot-deckbuilder.svg" alt="Screenshot: Deck builder and tools" loading="lazy" />
+                        <div class="demo-shot-cap">
+                            <div class="demo-tile-title">Deck Builder + Tools</div>
+                            <div class="demo-tile-body">Filters, deck management, goldfish, and quick testing workflows.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">CPU Duel Readiness</div>
+                <div class="demo-sub" style="margin-bottom:10px;">This helps hosts verify the duel stack before sharing the demo.</div>
+                <div id="cpu-readiness" class="readiness"></div>
+            </div>
+            <div class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">Roadmap Pages (Skeleton)</div>
+                <div class="demo-sub" style="margin-bottom:10px;">
+                    These anchors are placeholders for launch-day roadmap UI. They are not fully functional systems yet.
+                </div>
+                <div class="demo-grid">
+                    <div id="arc-profile" class="demo-tile">
+                        <div class="demo-tile-title">Custom Profile</div>
+                        <div class="demo-tile-body">Skeleton section. Profile editing, cosmetics, and public pages are coming soon.</div>
+                    </div>
+                    <div id="arc-account" class="demo-tile">
+                        <div class="demo-tile-title">Email / Account System</div>
+                        <div class="demo-tile-body">Skeleton section. Planning + basic placeholders only — no real recovery emails yet.</div>
+                    </div>
+                    <div id="arc-settings" class="demo-tile">
+                        <div class="demo-tile-title">Account Settings</div>
+                        <div class="demo-tile-body">Skeleton section. Privacy, preferences, and security controls will be added incrementally.</div>
+                    </div>
+                    <div id="arc-cosmetics" class="demo-tile">
+                        <div class="demo-tile-title">Cosmetics Inventory</div>
+                        <div class="demo-tile-body">Skeleton section. Cosmetic items are visual-only previews today.</div>
+                    </div>
+                    <div id="arc-rewards-pass" class="demo-tile">
+                        <div class="demo-tile-title">Rewards Pass (Season Zero)</div>
+                        <div class="demo-tile-body">Skeleton section. A sneak peek at the future progression vibe — no live rewards.</div>
+                    </div>
+                    <div id="arc-emulator-hub" class="demo-tile">
+                        <div class="demo-tile-title">Emulator Hub</div>
+                        <div class="demo-tile-body">Coming-soon section. A curated hub for browser game experiments and preservation-minded play.</div>
+                    </div>
+                    <div id="arc-multi-tcg" class="demo-tile">
+                        <div class="demo-tile-title">Multi‑TCG Expansion</div>
+                        <div class="demo-tile-body">Coming-soon section: Pokémon, One Piece, Lorcana, MTG, and Hololive — planned realms.</div>
+                    </div>
+                    <div id="arc-report-issue" class="demo-tile">
+                        <div class="demo-tile-title">Report an Issue</div>
+                        <div class="demo-tile-body">Skeleton section. Launch-day goal: easy reporting, clear templates, and quick triage.</div>
+                    </div>
+                    <div id="arc-feedback" class="demo-tile">
+                        <div class="demo-tile-title">Suggestions &amp; Feedback</div>
+                        <div class="demo-tile-body">Skeleton section. A simple place to share ideas and UX notes.</div>
+                    </div>
+                    <div id="arc-status" class="demo-tile">
+                        <div class="demo-tile-title">System Status / Site Issues</div>
+                        <div class="demo-tile-body">Skeleton section. Hosts can post known issues and current service availability.</div>
+                    </div>
+                    <div id="arc-new-format" class="demo-tile">
+                        <div class="demo-tile-title">New Yu‑Gi‑Oh Format (Trailer + Rules)</div>
+                        <div class="demo-tile-body">Coming soon. Trailer + rules overview will be published after launch.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="site-footer" aria-label="Footer">
+            <div class="site-footer-inner">
+                <div class="muted">Duelist ARC — <span id="demo-build-footer"></span> • No ads • Online PvP coming soon</div>
+                <div class="site-footer-links">
+                    <a href="/?demo=1&view=demo&tour=1&sample=classic_demo&draw=5">Start demo</a>
+                    <a href="/?demo=1&view=demo">Demo</a>
+                    <a href="/?demo=1&view=duel">Play</a>
+                    <a href="dev.html">Developer</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <div id="demo-settings" class="drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Demo settings">
+        <div class="drawer-backdrop" data-action="close"></div>
+        <div class="drawer-panel" role="document">
+            <div class="drawer-head">
+                <div class="drawer-title">Demo settings</div>
+                <button id="demo-settings-close" class="btn btn-small" type="button" title="Close">Close</button>
+            </div>
+            <div class="drawer-body">
+                <div class="drawer-group">
+                    <div class="drawer-group-title">Appearance</div>
+                    <label class="toggle">
+                        <input id="demo-theme-light" type="checkbox" />
+                        <span>Light theme</span>
+                    </label>
+                </div>
+                <div class="drawer-group">
+                    <div class="drawer-group-title">Demo</div>
+                    <label class="toggle">
+                        <input id="demo-mode-drawer" type="checkbox" />
+                        <span>Demo mode</span>
+                    </label>
+                    <div class="drawer-row">
+                        <button id="demo-copy-link-drawer" class="btn btn-small btn-primary" type="button">Copy demo link</button>
+                        <button id="demo-tour-open-drawer" class="btn btn-small" type="button">Open tour</button>
+                        <button id="demo-diagnostics-drawer" class="btn btn-small" type="button">Diagnostics</button>
+                    </div>
+                    <div class="drawer-row">
+                        <button id="demo-reset-local-drawer" class="btn btn-small" type="button">Reset local</button>
+                        <a class="btn btn-small" href="dev.html">Developer page</a>
+                    </div>
+                </div>
+                <div class="drawer-group">
+                    <div class="drawer-group-title">Feedback</div>
+                    <button id="demo-feedback-drawer" class="btn btn-small btn-primary" type="button">Copy feedback template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main id="view-selection" class="layout">
+        <section class="grid-wrap" aria-label="Card list">
+            <div id="card-grid"></div>
+        </section>
+
+        <aside class="detail" aria-label="Card details">
+            <div id="card-detail" class="detail-inner detail-card">
+                <div class="detail-empty">
+                    <h2>Select a card</h2>
+                    <p>Click a card on the left to view details.</p>
+                </div>
+            </div>
+
+            <div class="detail-inner detail-deck" aria-label="Deck builder">
+                <div class="deck-head">
+                    <h2>Deck</h2>
+                    <div class="deck-actions">
+                        <button id="deck-export" class="btn btn-small btn-primary" type="button">Export</button>
+                        <button id="deck-export-list" class="btn btn-small" type="button" title="Copy a plain-text deck list">Copy list</button>
+                        <button id="deck-export-ydk" class="btn btn-small" type="button" title="Copy a .ydk deck file">Copy YDK</button>
+                        <button id="deck-import" class="btn btn-small btn-primary" type="button">Import</button>
+                        <button id="deck-import-list" class="btn btn-small" type="button" title="Import a plain-text deck list">Import list</button>
+                        <button id="deck-import-ydk" class="btn btn-small" type="button" title="Import a .ydk deck file">Import YDK</button>
+                        <input id="deck-file" type="file" class="sr-only" accept=".json,.txt,.ydk,application/json,text/plain" />
+                        <button id="deck-import-file" class="btn btn-small" type="button" title="Import deck from a local file (.json/.txt/.ydk)">Import file</button>
+                        <label class="select">
+                            <span class="sr-only">Download format</span>
+                            <select id="deck-download-format" title="Download format">
+                                <option value="json">Download: JSON</option>
+                                <option value="txt">Download: List (.txt)</option>
+                                <option value="ydk">Download: YDK (.ydk)</option>
+                            </select>
+                        </label>
+                        <button id="deck-download" class="btn btn-small btn-primary" type="button" title="Download deck to your computer">Download</button>
+                        <button id="deck-clear" class="btn btn-small" type="button">Clear</button>
+                    </div>
+                </div>
+                <div class="deck-manager" aria-label="Deck manager">
+                    <label class="select">
+                        <span class="sr-only">Select deck</span>
+                        <select id="deck-select" title="Select deck"></select>
+                    </label>
+                    <div class="deck-actions">
+                        <button id="deck-new" class="btn btn-small btn-primary" type="button" title="Create a new deck">New</button>
+                        <button id="deck-dup" class="btn btn-small btn-primary" type="button" title="Duplicate the current deck">Duplicate</button>
+                        <button id="deck-del" class="btn btn-small" type="button" title="Delete the current deck">Delete</button>
+                    </div>
+                </div>
+                <label class="deck-name">
+                    <span class="sr-only">Deck name</span>
+                    <input id="deck-name" type="text" placeholder="Deck name…" maxlength="48" />
+                </label>
+                <label class="deck-notes">
+                    <span class="sr-only">Deck notes</span>
+                    <textarea id="deck-notes" rows="3" placeholder="Deck notes (optional)…"></textarea>
+                </label>
+                <div id="deck-meta" class="deck-meta"></div>
+                <div id="deck-warnings" class="deck-warnings" aria-live="polite"></div>
+                <details id="deck-tools" class="deck-tools">
+                    <summary class="btn btn-small">Deck tools</summary>
+                    <div class="deck-tools-body">
+                        <div class="deck-tools-row">
+                            <label class="select">
+                                <span class="sr-only">Compare deck</span>
+                                <select id="deck-compare" title="Compare with another saved deck"></select>
+                            </label>
+                            <button id="deck-compare-copy" class="btn btn-small btn-primary" type="button" title="Copy the deck diff">Copy diff</button>
+                            <button id="deck-copy-list-ids" class="btn btn-small" type="button" title="Copy a list including card ids">Copy list+ids</button>
+                            <button id="deck-prune-unknown" class="btn btn-small btn-primary" type="button" title="Remove cards not found in the current dataset">Remove unknown</button>
+                        </div>
+                        <div id="deck-compare-out" class="deck-compare-out"></div>
+                    </div>
+                </details>
+                <details id="goldfish" class="deck-tools">
+                    <summary class="btn btn-small">Goldfish</summary>
+                    <div class="deck-tools-body">
+                        <div class="goldfish-head">
+                            <div>
+                                <div id="goldfish-meta" class="muted"></div>
+                                <div id="goldfish-handstats" class="muted"></div>
+                            </div>
+                            <div class="row">
+                                <label class="select">
+                                    <span class="sr-only">Opening hand size</span>
+                                    <select id="goldfish-opening" title="Opening hand size">
+                                        <option value="5" selected>Opening: 5 (going 1st)</option>
+                                        <option value="6">Opening: 6 (going 2nd)</option>
+                                    </select>
+                                </label>
+                                <button id="goldfish-new" class="btn btn-small btn-primary" type="button" title="Reset zones, shuffle Main, draw opening hand">New hand</button>
+                                <button id="goldfish-mulligan" class="btn btn-small" type="button" title="Redraw opening hand (reset + shuffle + draw)">Mulligan</button>
+                                <button id="goldfish-keep" class="btn btn-small" type="button" title="Mark this hand as kept (for your own tracking)">Keep</button>
+                                <button id="goldfish-draw" class="btn btn-small" type="button" title="Draw 1 card">Draw 1</button>
+                                <button id="goldfish-next" class="btn btn-small" type="button" title="Advance to next turn and draw 1">Next turn</button>
+                                <button id="goldfish-reset" class="btn btn-small" type="button" title="Reset zones and shuffle (no draw)">Reset</button>
+                                <button id="goldfish-copy-ai" class="btn btn-small btn-primary" type="button" title="Copy an AI-friendly summary of your deck + current goldfish state">Copy AI summary</button>
+                            </div>
+                        </div>
+                        <div class="goldfish-zones">
+                            <div class="goldfish-zone">
+                                <div class="title">Hand</div>
+                                <div id="goldfish-hand" class="goldfish-list" aria-label="Hand"></div>
+                            </div>
+                            <div class="goldfish-zone">
+                                <div class="title">Field</div>
+                                <div id="goldfish-field" class="goldfish-list" aria-label="Field"></div>
+                            </div>
+                            <div class="goldfish-zone">
+                                <div class="title">GY</div>
+                                <div id="goldfish-gy" class="goldfish-list" aria-label="Graveyard"></div>
+                            </div>
+                            <div class="goldfish-zone">
+                                <div class="title">Banish</div>
+                                <div id="goldfish-banish" class="goldfish-list" aria-label="Banished"></div>
+                            </div>
+                        </div>
+                        <div class="muted">Tip: use filters + bulk role tools above, then goldfish a few hands and paste the AI summary into your coach.</div>
+                    </div>
+                </details>
+                <details id="platform" class="deck-tools platform-tools">
+                    <summary class="btn btn-small">Platform</summary>
+                    <div class="deck-tools-body">
+                        <div class="muted">Prototype: local-only accounts, season cycle, standings. Multiplayer/server comes later.</div>
+                        <div class="row">
+                            <label class="select">
+                                <span class="sr-only">Active account</span>
+                                <select id="plat-user" title="Active account"></select>
+                            </label>
+                            <input id="plat-user-new" type="text" placeholder="New handle" />
+                            <input id="plat-user-pass" type="password" placeholder="Password" />
+                            <button id="plat-user-create" class="btn btn-small btn-primary" type="button" title="Create account (local prototype)">Create</button>
+                            <button id="plat-user-login" class="btn btn-small btn-primary" type="button" title="Login">Login</button>
+                            <button id="plat-user-logout" class="btn btn-small" type="button" title="Logout">Logout</button>
+                        </div>
+                        <div class="muted">Phase: <span id="plat-phase"></span> • Next: <span id="plat-countdown"></span></div>
+                        <div class="row">
+                            <button id="plat-season-new" class="btn btn-small btn-primary" type="button" title="Start a new season (local prototype)">Start new season</button>
+                            <button id="plat-phase-end-tournament" class="btn btn-small btn-primary" type="button" title="Finalize qualifiers and switch to intermission (local prototype)">End tournament now</button>
+                            <button id="plat-state-export" class="btn btn-small btn-primary" type="button" title="Export platform state (JSON)">Export</button>
+                            <button id="plat-state-import" class="btn btn-small" type="button" title="Import platform state (JSON)">Import</button>
+                            <button id="plat-state-reset" class="btn btn-small" type="button" title="Reset platform state (local prototype)">Reset</button>
+                            <input id="plat-state-file" type="file" accept="application/json,.json" class="sr-only" />
+                            <div class="muted">Note: this is a prototype control to test seasonal behavior quickly.</div>
+                        </div>
+                        <div class="muted">Tournament rules (prototype): limited counted matches per day and per opponent to reduce farming.</div>
+                        <div class="row">
+                            <input id="plat-match-opponent" type="text" placeholder="Opponent handle" />
+                            <label class="select">
+                                <span class="sr-only">Format</span>
+                                <select id="plat-match-format" title="Format">
+                                    <option value="tcg" selected>TCG</option>
+                                    <option value="ocg">OCG</option>
+                                    <option value="goat">GOAT</option>
+                                </select>
+                            </label>
+                            <label class="select">
+                                <span class="sr-only">Your deck</span>
+                                <select id="plat-match-deck-a" title="Your deck"></select>
+                            </label>
+                            <label class="select">
+                                <span class="sr-only">Opponent deck</span>
+                                <select id="plat-match-deck-b" title="Opponent deck"></select>
+                            </label>
+                            <button id="plat-match-start" class="btn btn-small btn-primary" type="button" title="Start a ranked match (local prototype)">Start match</button>
+                        </div>
+                        <div id="plat-matches" class="platform-box" aria-label="Matches"></div>
+                        <div id="plat-standings" class="platform-box" aria-label="Standings"></div>
+                        <div id="plat-season-stats" class="platform-box" aria-label="Season stats"></div>
+                        <div id="plat-roles" class="platform-box" aria-label="Intermission roles"></div>
+                        <div id="plat-intermission" class="platform-box" aria-label="Intermission gameplay"></div>
+                        <div id="plat-event-log" class="platform-box" aria-label="Event log"></div>
+                    </div>
+                </details>
+                <div id="deck-list" class="deck-list"></div>
+            </div>
+        </aside>
+    </main>
+
+    <main id="view-duel" class="duel-view" hidden>
+        <div class="duel-wrap">
+            <div class="duel-head">
+                <h2>Duel (CPU)</h2>
+                <div class="muted">Duel engine runs on the server (users shouldn’t download cores). This tab will evolve into the full in-browser duel field UI.</div>
+                <div class="duel-controls" style="margin-top:10px;">
+                    <div id="demo-status" class="demo-status" aria-label="Demo status"></div>
+                    <button id="demo-copy-link" class="btn btn-small btn-primary" type="button" title="Copy a shareable demo link">Copy demo link</button>
+                    <button id="demo-diagnostics" class="btn btn-small" type="button" title="View diagnostics and copy details">Diagnostics</button>
+                    <button id="demo-reset-local" class="btn btn-small" type="button" title="Clears local demo data (decks/layouts/goldfish)">Reset local</button>
+                </div>
+                <div class="duel-banner" style="margin-top:10px;">
+                    <div class="title" style="font-weight:700;margin-bottom:6px;">Playable Now</div>
+                    <div class="duel-controls" style="margin-top:0;">
+                        <button id="duel-browser-primary-start" class="btn btn-small btn-primary" type="button">Duel a CPU (browser)</button>
+                        <div id="duel-browser-primary-status" class="muted">Browser CPU: checking…</div>
+                    </div>
+                    <div class="muted" style="margin-top:6px;">This is the recommended demo path. WindBot/EDOPro legacy mode is optional.</div>
+                </div>
+                <div class="duel-banner" style="margin-top:10px;">
+                    <div class="title" style="font-weight:700;margin-bottom:4px;">Online Dueling — Coming Soon</div>
+                    <div id="duel-online-soon-text" class="muted">For this demo: duel CPUs locally on this server. Real-time PvP matchmaking and friend duels are in progress.</div>
+                </div>
+                <div class="duel-banner" style="margin-top:10px;">
+                    <div class="title" style="font-weight:700;margin-bottom:6px;">Deck Test (Instant)</div>
+                    <div class="muted" style="margin-bottom:8px;">Upload a deck, shuffle, and draw an opening hand of 5 — no duel service required.</div>
+                <div class="duel-controls" style="margin-top:0;">
+                    <button id="duel-quickdeck-upload" class="btn btn-small btn-primary" type="button">Upload deck</button>
+                    <button id="duel-quickdeck-paste" class="btn btn-small" type="button" title="Paste a plain-text deck list">Paste list</button>
+                    <button id="duel-quickdeck-draw5" class="btn btn-small" type="button">Shuffle + Draw 5</button>
+                    <button id="duel-quickdeck-mulligan" class="btn btn-small" type="button">Mulligan</button>
+                    <button id="duel-quickdeck-open-builder" class="btn btn-small" type="button" title="Opens Deck Builder + Goldfish tools">Open deck builder</button>
+                    <label class="select" title="Load a sample deck (name-based import)">
+                        <span class="sr-only">Sample deck</span>
+                        <select id="duel-sample-deck"></select>
+                    </label>
+                    <button id="duel-sample-deck-load" class="btn btn-small" type="button">Load sample</button>
+                    <a class="btn btn-small" href="dev.html" title="Learn about the project and roadmap">Developer page</a>
+                </div>
+                    <div id="duel-quickdeck-out" class="duel-out" aria-live="polite" style="margin-top:10px;"></div>
+                </div>
+                <div id="duel-service-health" class="muted" style="margin-top:6px;"></div>
+                <div id="duel-login-required" class="duel-banner" hidden style="margin-top:8px;">
+                    Sign in is required to start duels on this server.
+                </div>
+                <div style="margin-top:8px;">
+                    <button id="duel-advanced-toggle" class="btn btn-small" type="button" title="Show/hide debug controls (local dev)">Advanced</button>
+                </div>
+                <div id="duel-auth" class="duel-auth" style="margin-top:10px;">
+                    <div id="duel-auth-status" class="muted"></div>
+                    <div id="duel-auth-form" class="duel-auth-form">
+                        <input id="duel-auth-handle" type="text" placeholder="Handle" autocomplete="username" />
+                        <input id="duel-auth-pass" type="password" placeholder="Password" autocomplete="current-password" />
+                        <input id="duel-auth-email-register" type="text" placeholder="Email (optional — recovery later)" autocomplete="email" />
+                        <button id="duel-auth-login" class="btn btn-small btn-primary" type="button">Login</button>
+                        <button id="duel-auth-register" class="btn btn-small" type="button">Register</button>
+                        <button id="duel-auth-logout" class="btn btn-small" type="button" hidden>Logout</button>
+                    </div>
+                    <div class="muted" style="margin-top:6px;">Note: profile/settings UI comes later — this is just a lightweight sign-in control.</div>
+                    <div id="duel-auth-email" class="duel-banner" hidden style="margin-top:10px;">
+                        <div class="title" style="font-weight:700;margin-bottom:6px;">Account email (skeleton)</div>
+                        <div class="muted" style="margin-bottom:8px;">Add an email now so password reset can be enabled later.</div>
+                        <div class="duel-controls" style="margin-top:0;">
+                            <input id="duel-auth-email-input" type="text" placeholder="Email address" autocomplete="email" />
+                            <button id="duel-auth-email-save" class="btn btn-small btn-primary" type="button">Save email</button>
+                        </div>
+                        <div class="muted" style="margin-top:8px;">Password reset codes via email: coming soon.</div>
+                    </div>
+                </div>
+            </div>
+            <div id="duel-cpu-block">
+                <div class="duel-head" style="margin-top:10px;">
+                    <h2>WindBot CPU (Legacy)</h2>
+                    <div class="muted">Optional legacy path: creates an EDOPro room and spawns WindBot. The primary demo uses the in-browser CPU duel below.</div>
+                </div>
+                <div class="duel-controls">
+                    <label class="select">
+                        <span class="sr-only">Rule</span>
+                        <select id="duel-rule" title="Rule">
+                            <option value="0">Rule: OCG</option>
+                            <option value="1" selected>Rule: TCG</option>
+                            <option value="2">Rule: OCG/TCG</option>
+                            <option value="3">Rule: Pre-release</option>
+                            <option value="4">Rule: Anything Goes</option>
+                        </select>
+                    </label>
+                    <label class="select">
+                        <span class="sr-only">Banlist</span>
+                        <select id="duel-banlist-select" title="Banlist"></select>
+                    </label>
+                    <input id="duel-banlist" type="text" placeholder="Banlist name (e.g. 2026.04 TCG)" />
+                    <div id="duel-banlist-quick" class="chips chips-active" aria-label="Quick banlists"></div>
+                    <input id="duel-bot-name" type="text" placeholder="Bot name" value="WindBot" />
+                    <input id="duel-bot-deck" type="text" placeholder="Bot deck (optional, WindBot deck name)" />
+                    <button id="duel-start" class="btn btn-primary" type="button">Start WindBot CPU (legacy)</button>
+                    <button id="duel-stop" class="btn btn-small" type="button" disabled>Stop</button>
+                </div>
+                <div id="duel-out" class="duel-out" aria-live="polite"></div>
+            </div>
+            <div id="demo-roadmap" class="demo-roadmap">
+                <div class="title">What’s in this demo</div>
+                <ul>
+                    <li>Upload a deck → shuffle + draw 5 instantly</li>
+                    <li>In-browser CPU duel (server-hosted core)</li>
+                    <li>Deck builder + filters + goldfish tools</li>
+                </ul>
+                <div class="title" style="margin-top:10px;">Coming next</div>
+                <ul>
+                    <li>Online PvP matchmaking + friend duels</li>
+                    <li>In-browser duel field UI (replaces legacy join flow)</li>
+                </ul>
+            </div>
+            <div id="duel-advanced-block">
+            <div class="divider"></div>
+            <div class="duel-head">
+                <h2>Browser Duel (v0)</h2>
+                <div class="muted">Starts a server-side core session and streams events here (SSE). UI is an event log for now.</div>
+                <div id="duel-session-health" class="muted" style="margin-top:6px;"></div>
+            </div>
+            <div class="duel-hud" style="margin-top:10px;">
+                <div class="duel-hud-item">Turn: <span id="duel-hud-turn" class="muted">—</span></div>
+                <div class="duel-hud-item">Phase: <span id="duel-hud-phase" class="muted">—</span></div>
+                <div class="duel-hud-item">LP (You): <span id="duel-hud-lp0" class="muted">—</span></div>
+                <div class="duel-hud-item">LP (CPU): <span id="duel-hud-lp1" class="muted">—</span></div>
+                <div class="duel-hud-item">Status: <span id="duel-hud-status" class="muted">Idle</span></div>
+            </div>
+            <div class="duel-controls">
+                <label class="select">
+                    <span class="sr-only">Your deck</span>
+                    <select id="duel-session-deck-p1" title="Your deck"></select>
+                </label>
+                <label class="select">
+                    <span class="sr-only">CPU deck</span>
+                    <select id="duel-session-deck-p2" title="CPU deck"></select>
+                </label>
+                <div id="duel-session-deck-status" class="muted"></div>
+            </div>
+            <div class="duel-controls">
+                <button id="duel-session-start" class="btn btn-primary" type="button">Duel a CPU (browser)</button>
+                <button id="duel-session-resume" class="btn btn-small" type="button" hidden>Resume last session</button>
+                <button id="duel-session-stop" class="btn btn-small" type="button" disabled>Stop</button>
+                <button id="duel-session-process" class="btn btn-small" type="button" disabled>Process tick</button>
+                <label class="toggle" title="Continuously send PROCESS ticks while running">
+                    <input id="duel-session-auto" type="checkbox" />
+                    <span>Auto process</span>
+                </label>
+            </div>
+            <div id="duel-session-prompt" class="duel-banner" hidden style="margin-top:10px;">
+                <div style="margin-bottom:6px;">Input may be required. Use the helper below (experimental) or send a specific RESPONSE.</div>
+                <div id="duel-session-choices" class="duel-controls" style="margin-top:0;"></div>
+                <div class="duel-controls" style="margin-top:0;">
+                    <input id="duel-session-default-raw" type="text" placeholder="Default RESPONSE hex (e.g. 00)" value="00" />
+                    <button id="duel-session-send-default" class="btn btn-small btn-primary" type="button">Send default</button>
+                </div>
+            </div>
+            <div class="duel-controls">
+                <input id="duel-session-raw" type="text" placeholder="Raw RESPONSE hex bytes (e.g. 00 or 0102...)" />
+                <input id="duel-session-replier" type="text" placeholder="Replier team (0/1)" value="0" />
+                <button id="duel-session-send" class="btn btn-small btn-primary" type="button" disabled>Send RESPONSE</button>
+            </div>
+            <div id="duel-session-out" class="duel-out" aria-live="polite"></div>
+            <div id="duel-local-block">
+                <div class="divider"></div>
+                <div class="duel-head">
+                    <h2>Local Duel (Debug)</h2>
+                    <div class="muted">Runs `CoreIntegrator` directly and streams messages to this page (SSE).</div>
+                    <div id="duel-local-health" class="muted" style="margin-top:6px;"></div>
+                </div>
+                <div class="duel-controls">
+                    <button id="duel-local-start" class="btn btn-primary" type="button">Start local duel</button>
+                    <button id="duel-local-stop" class="btn btn-small" type="button" disabled>Stop local</button>
+                    <button id="duel-local-process" class="btn btn-small" type="button" disabled>Process tick</button>
+                    <label class="toggle" title="Continuously send PROCESS ticks while running">
+                        <input id="duel-local-auto" type="checkbox" />
+                        <span>Auto process</span>
+                    </label>
+                </div>
+                <div class="duel-controls">
+                    <input id="duel-local-raw" type="text" placeholder="Raw RESPONSE hex bytes (e.g. 00 or 0102...)" />
+                    <input id="duel-local-replier" type="text" placeholder="Replier team (0/1)" value="0" />
+                    <button id="duel-local-send" class="btn btn-small btn-primary" type="button" disabled>Send RESPONSE</button>
+                </div>
+                <div id="duel-local-out" class="duel-out" aria-live="polite"></div>
+            </div>
+            </div>
+        </div>
+    </main>
+    <div id="card-preview" class="card-preview" aria-hidden="true"></div>
+    <div id="image-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Card image viewer">
+        <div class="modal-backdrop" data-action="close"></div>
+        <div class="modal-panel" role="document">
+            <div class="modal-head">
+                <div id="modal-title" class="modal-title"></div>
+                <div class="modal-actions">
+                    <button id="modal-prev" class="btn btn-small" type="button" title="Previous (←)">Prev</button>
+                    <button id="modal-next" class="btn btn-small" type="button" title="Next (→)">Next</button>
+                    <button id="modal-zoom" class="btn btn-small" type="button" title="Toggle zoom (z)">Zoom</button>
+                    <button id="modal-close" class="btn btn-small" type="button" title="Close (Esc)">Close</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <img id="modal-img" class="modal-img" alt="" />
+            </div>
+        </div>
+    </div>
+    <div id="demo-tour" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Demo tour">
+        <div class="modal-backdrop" data-action="close"></div>
+        <div class="modal-panel demo-tour-panel" role="document">
+            <div class="modal-head">
+                <div class="modal-title">Duelist ARC — Demo Tour</div>
+                <div class="modal-actions">
+                    <button id="demo-tour-close" class="btn btn-small" type="button" title="Close">Close</button>
+                </div>
+            </div>
+            <div class="modal-body demo-tour-body">
+                <div id="demo-tour-step" class="demo-tour-step"></div>
+                <div class="demo-tour-actions">
+                    <button id="demo-tour-back" class="btn btn-small" type="button">Back</button>
+                    <button id="demo-tour-next" class="btn btn-small btn-primary" type="button">Next</button>
+                    <button id="demo-tour-done" class="btn btn-small btn-primary" type="button" hidden>Done</button>
+                </div>
+                <div class="muted" style="margin-top:10px;">Tip: share a link like <code>?demo=1&amp;view=duel&amp;tour=1</code> to onboard testers fast.</div>
+            </div>
+        </div>
+    </div>
+    <div id="demo-diagnostics-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Diagnostics">
+        <div class="modal-backdrop" data-action="close"></div>
+        <div class="modal-panel demo-tour-panel" role="document">
+            <div class="modal-head">
+                <div class="modal-title">Diagnostics</div>
+                <div class="modal-actions">
+                    <button id="demo-diagnostics-copy" class="btn btn-small btn-primary" type="button">Copy</button>
+                    <button id="demo-diagnostics-close" class="btn btn-small" type="button" title="Close">Close</button>
+                </div>
+            </div>
+            <div class="modal-body demo-tour-body">
+                <div class="demo-tour-step">
+                    <div class="muted" style="margin-bottom:10px;">Copy this into a bug report or share it with the host.</div>
+                    <pre id="demo-diagnostics-pre" class="diag-pre"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="realms-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Expanding Realms">
+        <div class="modal-backdrop" data-action="close"></div>
+        <div class="modal-panel demo-tour-panel realms-modal-panel" role="document">
+            <div class="modal-head">
+                <div id="realms-modal-title" class="modal-title">Expanding Realms</div>
+                <div class="modal-actions">
+                    <button id="realms-modal-close" class="btn btn-small" type="button" title="Close">Close</button>
+                </div>
+            </div>
+            <div class="modal-body demo-tour-body">
+                <div id="realms-modal-badges" class="realm-badges" style="margin-bottom:10px;"></div>
+                <div id="realms-modal-body" class="demo-tile-body" style="font-size:14px;line-height:1.55;"></div>
+                <div id="realms-modal-bullets" class="demo-tile-body" style="margin-top:10px;"></div>
+                <div class="muted" style="margin-top:12px;">Note: these are preview sections. Duelist ARC ships features only when they’re stable and demo-safe.</div>
+            </div>
+        </div>
+    </div>
+    <div id="odds-panel" class="odds-panel" aria-label="Opening-hand odds panel">
+        <div class="odds-panel-header">
+            <span class="odds-panel-title">Deck Lab</span>
+            <button id="odds-minimize" class="btn btn-small" type="button" title="Minimize">_</button>
+        </div>
+        <div class="odds-panel-body">
+            <div class="odds">
+                <div class="odds-head">
+                    <div class="title">Opening-hand odds (Monte Carlo)</div>
+                    <div class="row">
+                        <label class="select">
+                            <span class="sr-only">Trials</span>
+                            <select id="odds-trials" title="Trials">
+                                <option value="1000">Trials: 1,000</option>
+                                <option value="5000">Trials: 5,000</option>
+                                <option value="10000" selected>Trials: 10,000</option>
+                                <option value="50000">Trials: 50,000</option>
+                            </select>
+                        </label>
+                        <label class="select">
+                            <span class="sr-only">Hand size</span>
+                            <select id="odds-hand" title="Hand size">
+                                <option value="5" selected>Hand: 5 (going 1st)</option>
+                                <option value="6">Hand: 6 (going 2nd)</option>
+                            </select>
+                        </label>
+                        <label class="toggle" title="Use separate Target settings for Hand=5 vs Hand=6">
+                            <input id="odds-target-lock-hand" type="checkbox" />
+                            <span>Target per hand</span>
+                        </label>
+                        <button id="odds-run" class="btn btn-small btn-primary" type="button" title="Run opening-hand simulation">Run</button>
+                        <button id="odds-clear" class="btn btn-small" type="button" title="Clear starter selections">Clear starters</button>
+                        <button id="odds-clear-ext" class="btn btn-small" type="button" title="Clear extender selections">Clear extenders</button>
+                        <button id="odds-clear-handtrap" class="btn btn-small" type="button" title="Clear handtrap selections">Clear handtraps</button>
+                        <button id="odds-clear-brick" class="btn btn-small" type="button" title="Clear brick selections">Clear bricks</button>
+                    </div>
+                </div>
+                <div id="odds-list" class="odds-list" aria-label="Role selection list"></div>
+                <div class="odds-bulk">
+                    <div class="row">
+                        <label class="select">
+                            <span class="sr-only">Role</span>
+                            <select id="odds-bulk-role" title="Role">
+                                <option value="starter" selected>Role: Starter</option>
+                                <option value="extender">Role: Extender</option>
+                                <option value="handtrap">Role: Handtrap</option>
+                                <option value="brick">Role: Brick</option>
+                            </select>
+                        </label>
+                        <label class="select">
+                            <span class="sr-only">Mode</span>
+                            <select id="odds-bulk-mode" title="Mode">
+                                <option value="add" selected>Mode: Add</option>
+                                <option value="replace">Mode: Replace</option>
+                                <option value="remove">Mode: Remove</option>
+                            </select>
+                        </label>
+                        <button id="odds-bulk-apply" class="btn btn-small btn-primary" type="button" title="Apply to cards currently shown in the grid">Apply from current view</button>
+                    </div>
+                    <div class="muted">Uses your current filters/search (only affects cards that are in your Main deck).</div>
+                </div>
+                <div class="odds-target">
+                    <div class="title">Target (opening hand)</div>
+                    <div class="row">
+                        <label class="select">
+                            <span class="sr-only">Preset</span>
+                            <select id="odds-target-preset" title="Target preset">
+                                <option value="combo" selected>Preset: Combo (S≥1 E≥1 B≤0)</option>
+                                <option value="default">Preset: Default (S≥1 B≤0)</option>
+                                <option value="going2">Preset: Going 2nd (S≥1 H≥1 B≤0)</option>
+                                <option value="grind">Preset: Grind (S≥1 H≥2 B≤1)</option>
+                                <option value="custom">Preset: Custom</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="num-filter" title="Minimum starters in opening hand">
+                            <span class="sr-only">Starter min</span>
+                            <input id="odds-target-min-starter" inputmode="numeric" type="number" min="0" max="5" value="1" placeholder="S ≥" />
+                        </label>
+                        <label class="num-filter" title="Minimum extenders in opening hand">
+                            <span class="sr-only">Extender min</span>
+                            <input id="odds-target-min-extender" inputmode="numeric" type="number" min="0" max="5" value="1" placeholder="E ≥" />
+                        </label>
+                        <label class="num-filter" title="Minimum handtraps in opening hand">
+                            <span class="sr-only">Handtrap min</span>
+                            <input id="odds-target-min-handtrap" inputmode="numeric" type="number" min="0" max="5" value="0" placeholder="H ≥" />
+                        </label>
+                        <label class="num-filter" title="Maximum bricks in opening hand">
+                            <span class="sr-only">Brick max</span>
+                            <input id="odds-target-max-brick" inputmode="numeric" type="number" min="0" max="5" value="0" placeholder="B ≤" />
+                        </label>
+                    </div>
+                    <div class="muted">Target is computed when you click Run.</div>
+                </div>
+                <div id="odds-out" class="odds-out" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+    <button id="odds-restore-tab" class="odds-restore-tab" type="button" hidden>Deck Lab</button>
+    <div id="deck-lab-hint" class="deck-lab-hint" hidden>
+        <div class="deck-lab-hint-title">Deck Lab is minimized</div>
+        <div class="deck-lab-hint-body">Open it to see card details, your deck tools, and opening-hand odds.</div>
+        <div class="deck-lab-hint-actions">
+            <button id="deck-lab-hint-open" class="btn btn-small btn-primary" type="button">Open</button>
+            <button id="deck-lab-hint-close" class="btn btn-small" type="button" aria-label="Dismiss">Dismiss</button>
+        </div>
+    </div>
+    <script src="js/main.js?v=54"></script>
+</body>
+</html>

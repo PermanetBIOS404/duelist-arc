@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="g0" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081427"/>
+      <stop offset="0.55" stop-color="#071b2e"/>
+      <stop offset="1" stop-color="#042437"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="22%" cy="8%" r="62%">
+      <stop offset="0" stop-color="#00d5ff" stop-opacity="0.25"/>
+      <stop offset="0.5" stop-color="#00d5ff" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#00d5ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="88%" cy="18%" r="58%">
+      <stop offset="0" stop-color="#4dd0ff" stop-opacity="0.18"/>
+      <stop offset="0.55" stop-color="#4dd0ff" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#4dd0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="62%" cy="105%" r="62%">
+      <stop offset="0" stop-color="#00ffa8" stop-opacity="0.12"/>
+      <stop offset="0.55" stop-color="#00ffa8" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#00ffa8" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 H 0 V 64" fill="none" stroke="#7dd3fc" stroke-opacity="0.10" stroke-width="1"/>
+      <path d="M 32 0 V 64" fill="none" stroke="#7dd3fc" stroke-opacity="0.06" stroke-width="1"/>
+      <path d="M 0 32 H 64" fill="none" stroke="#7dd3fc" stroke-opacity="0.06" stroke-width="1"/>
+      <circle cx="32" cy="32" r="1.4" fill="#22d3ee" opacity="0.16"/>
+    </pattern>
+
+    <linearGradient id="streak" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#22d3ee" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- base -->
+  <rect width="1600" height="900" fill="url(#g0)"/>
+  <rect width="1600" height="900" fill="url(#glowA)"/>
+  <rect width="1600" height="900" fill="url(#glowB)"/>
+  <rect width="1600" height="900" fill="url(#glowC)"/>
+
+  <!-- subtle grid -->
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.9"/>
+
+  <!-- diagonal streaks -->
+  <g opacity="0.65" transform="rotate(-18 800 450)">
+    <rect x="-200" y="120" width="2000" height="3" fill="url(#streak)"/>
+    <rect x="-200" y="220" width="2000" height="2" fill="url(#streak)"/>
+    <rect x="-200" y="340" width="2000" height="3" fill="url(#streak)"/>
+    <rect x="-200" y="520" width="2000" height="2" fill="url(#streak)"/>
+    <rect x="-200" y="650" width="2000" height="3" fill="url(#streak)"/>
+  </g>
+
+  <!-- corner accents -->
+  <g opacity="0.65">
+    <path d="M80 120 C 240 10, 360 10, 520 90" fill="none" stroke="#22d3ee" stroke-opacity="0.22" stroke-width="2"/>
+    <path d="M110 160 C 270 60, 390 55, 540 120" fill="none" stroke="#38bdf8" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M1480 760 C 1340 900, 1140 910, 980 830" fill="none" stroke="#22d3ee" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M1460 720 C 1320 850, 1140 860, 1000 795" fill="none" stroke="#38bdf8" stroke-opacity="0.14" stroke-width="2"/>
+  </g>
+</svg>
+

@@ -1,0 +1,82 @@
+services:
+  # Duelist ARC app server (serves frontend + API).
+  duelist-arc:
+    image: duelist-arc:local
+    build:
+      context: .
+      dockerfile: docker/DuelistArc.Dockerfile
+      # Use `target: bundled` to vendor CoreIntegrator into this image
+      # (enables "Browser CPU" without a separate host checkout).
+      target: "${DUELIST_ARC_DOCKER_TARGET:-app}"
+      args:
+        EDOPRO_REPO: "${EDOPRO_REPO:-https://github.com/diangogav/EDOpro-server-ts.git}"
+        # Pin this for demo-day stability.
+        EDOPRO_REF: "${EDOPRO_REF:-main}"
+    environment:
+      PORT: "8787"
+      HOST: "0.0.0.0"
+      NODE_ENV: "${NODE_ENV:-development}"
+      DB_PATH: "/app/server/data/app.db"
+      # Required for public/demo deployments (do not rely on the dev fallback).
+      JWT_SECRET: "${JWT_SECRET:?Set JWT_SECRET to a strong random value}"
+      # Demo-hardening: keep the UI clean even if NODE_ENV=development.
+      DUEL_LOCAL_ENABLED: "false"
+      DUEL_EXPOSE_JOIN_INFO: "false"
+      DUEL_EXPOSE_ROOM_PASSWORD: "false"
+      # When served behind HTTPS (Cloudflare Tunnel / reverse proxy), cookies must be Secure.
+      COOKIE_SECURE: "${COOKIE_SECURE:-true}"
+      # Optional indexing toggle (only enforced by the server in NODE_ENV=production).
+      PUBLIC_INDEXING: "${PUBLIC_INDEXING:-false}"
+      # In a real deployment, point to the internal duel host service.
+      EDOPRO_HTTP_URL: "http://edopro:7922"
+      EDOPRO_HOST: "edopro"
+      EDOPRO_PORT: "7911"
+      # Optional CPU bot; mount bot binary and set WINDBOT_EXE if you want CPU duels.
+      WINDBOT_EXE: "/opt/windbot/WindBot.exe"
+      WINDBOT_CWD: "/opt/windbot"
+    ports:
+      - "8787:8787"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:8787/healthz', r=>process.exit(r.statusCode===200?0:1)).on('error', ()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      edopro:
+        condition: service_healthy
+    volumes:
+      # If you have WindBot on the host, mount it here (optional).
+      - ./server/.tmp/windbot:/opt/windbot:ro
+      # Persist demo DB + cached assets (cards/images).
+      - ./server/data:/app/server/data
+
+  # EDOPro duel host service (EDOpro-server-ts).
+  # This should run server-side; browser clients never download this.
+  edopro:
+    image: edopro-server-ts:local
+    build:
+      context: docker/edopro
+      dockerfile: Dockerfile
+      args:
+        EDOPRO_REPO: "https://github.com/diangogav/EDOpro-server-ts.git"
+        # IMPORTANT for demo-day stability: override this with a pinned commit SHA or tag.
+        # Example: `EDOPRO_REF=1a2b3c4 docker-compose -f docker-compose.duel.yml up -d --build`
+        EDOPRO_REF: "${EDOPRO_REF:-main}"
+    environment:
+      HOST_PORT: "7911"
+      HTTP_PORT: "7922"
+      WEBSOCKET_PORT: "4000"
+      NODE_ENV: "production"
+      RANK_ENABLED: "false"
+    ports:
+      - "7911:7911"
+      - "7922:7922"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:7922/api/rooms"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s

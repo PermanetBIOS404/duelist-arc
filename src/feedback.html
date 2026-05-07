@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Duelist ARC — Suggestions & Feedback (skeleton)" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Duelist ARC — Suggestions & Feedback" />
+    <meta property="og:description" content="Launch-day skeleton: feedback templates." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/logo.png" />
+    <title>Duelist ARC — Suggestions & Feedback (Skeleton)</title>
+    <link rel="stylesheet" href="css/style.css?v=56" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="apple-touch-icon" href="/assets/logo.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+</head>
+<body>
+    <header class="header">
+        <div class="brand">
+            <button class="brand-mascot" type="button" aria-label="Mascot (decorative)">
+                <img
+                    class="brand-mark"
+                    src="assets/mascot.png"
+                    alt="Duelist ARC mascot"
+                    loading="eager"
+                    onerror="this.onerror=null;this.src='assets/mascot-placeholder.svg';"
+                />
+            </button>
+            <div class="brand-text">
+                <h1>Duelist ARC</h1>
+                <div class="brand-sub">Suggestions &amp; Feedback (skeleton)</div>
+            </div>
+        </div>
+        <div class="toolbar">
+            <a class="btn btn-small btn-primary" href="/" title="Back to the app">Back to app</a>
+            <a class="btn btn-small" href="/?demo=1&view=demo" title="Open the demo landing">Demo landing</a>
+            <a class="btn btn-small" href="report-issue.html" title="Report a bug">Report Issue</a>
+            <a class="btn btn-small" href="status.html" title="System status">Status</a>
+            <a class="btn btn-small" href="dev.html" title="Developer page">Developer</a>
+        </div>
+    </header>
+
+    <main class="demo-view">
+        <div class="demo-hero">
+            <div class="demo-hero-inner">
+                <div class="demo-hero-left">
+                    <div class="demo-kicker">Launch Day Skeleton</div>
+                    <h2 class="demo-title">Suggestions &amp; Feedback</h2>
+                    <div class="demo-sub">
+                        This page provides simple templates for sharing ideas. It does not submit feedback automatically yet—copy the template and share it where the project is collecting notes.
+                    </div>
+                    <div class="demo-cta">
+                        <button id="fb-copy" class="btn btn-primary" type="button">Copy feedback template</button>
+                        <a class="btn btn-small btn-primary" href="/?demo=1&view=duel">Play the demo</a>
+                    </div>
+                    <div id="fb-out" class="muted" style="margin-top:10px;"></div>
+                </div>
+                <div class="demo-hero-right">
+                    <div class="demo-card">
+                        <div class="demo-card-title">High-value feedback</div>
+                        <ul>
+                            <li>Where you got confused</li>
+                            <li>What felt slow or cluttered</li>
+                            <li>What you expected to find</li>
+                            <li>Ideas that improve “first 5 minutes”</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-sections">
+            <div class="demo-section">
+                <div class="demo-section-title">Feedback Buckets</div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">UX Improvements</div>
+                        <div class="demo-tile-body">Navigation, wording, onboarding, and “what do I do next?” clarity.</div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Feature Requests</div>
+                        <div class="demo-tile-body">Roadmap ideas like profiles, cosmetics, multi‑TCG realms, and emulator hub.</div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Duel Flow</div>
+                        <div class="demo-tile-body">Anything that impacts CPU duel stability, deck testing flow, or server readiness.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" aria-label="Footer">
+        <div class="site-footer-inner">
+            <div class="muted">Duelist ARC — Feedback skeleton • May 7, 2026</div>
+            <div class="site-footer-links">
+                <a href="/?demo=1&view=demo">Demo</a>
+                <a href="/?demo=1&view=duel">Play</a>
+                <a href="report-issue.html">Report Issue</a>
+                <a href="status.html">Status</a>
+                <a href="dev.html">Developer</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const btn = document.getElementById('fb-copy');
+            const out = document.getElementById('fb-out');
+            const setOut = (text) => {
+                if (out instanceof HTMLElement) out.textContent = String(text || '');
+            };
+
+            const template = [
+                'Duelist ARC — Feedback',
+                '',
+                'Category: (UX / Feature / Duel Flow / Other)',
+                '',
+                'Feedback:',
+                '- ',
+                '',
+                'Why it matters:',
+                '- ',
+                '',
+                'What I expected:',
+                '- ',
+                '',
+                'Extra context:',
+                `- Page: ${location.pathname}${location.search}${location.hash}`,
+                `- User agent: ${navigator.userAgent}`,
+            ].join('\n');
+
+            btn?.addEventListener?.('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(template);
+                    setOut('Copied. Paste this into your feedback channel / tracker.');
+                } catch {
+                    setOut('Copy failed (clipboard blocked). Copy manually from the prompt.');
+                    try {
+                        window.prompt('Copy this feedback template:', template);
+                    } catch {
+                        // ignore
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+

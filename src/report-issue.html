@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Duelist ARC — Report an Issue (skeleton)" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Duelist ARC — Report an Issue" />
+    <meta property="og:description" content="Launch-day skeleton: issue reporting templates." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/logo.png" />
+    <title>Duelist ARC — Report an Issue (Skeleton)</title>
+    <link rel="stylesheet" href="css/style.css?v=56" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="apple-touch-icon" href="/assets/logo.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+</head>
+<body>
+    <header class="header">
+        <div class="brand">
+            <button class="brand-mascot" type="button" aria-label="Mascot (decorative)">
+                <img
+                    class="brand-mark"
+                    src="assets/mascot.png"
+                    alt="Duelist ARC mascot"
+                    loading="eager"
+                    onerror="this.onerror=null;this.src='assets/mascot-placeholder.svg';"
+                />
+            </button>
+            <div class="brand-text">
+                <h1>Duelist ARC</h1>
+                <div class="brand-sub">Report an Issue (skeleton)</div>
+            </div>
+        </div>
+        <div class="toolbar">
+            <a class="btn btn-small btn-primary" href="/" title="Back to the app">Back to app</a>
+            <a class="btn btn-small" href="/?demo=1&view=demo" title="Open the demo landing">Demo landing</a>
+            <a class="btn btn-small" href="feedback.html" title="Suggestions & feedback">Feedback</a>
+            <a class="btn btn-small" href="status.html" title="System status">Status</a>
+            <a class="btn btn-small" href="dev.html" title="Developer page">Developer</a>
+        </div>
+    </header>
+
+    <main class="demo-view">
+        <div class="demo-hero">
+            <div class="demo-hero-inner">
+                <div class="demo-hero-left">
+                    <div class="demo-kicker">Launch Day Skeleton</div>
+                    <h2 class="demo-title">Report an Issue</h2>
+                    <div class="demo-sub">
+                        This page helps you report bugs clearly. It does not submit tickets automatically yet—use the template + share it where the project is tracking issues.
+                    </div>
+                    <div class="demo-cta">
+                        <button id="issue-copy" class="btn btn-primary" type="button">Copy issue template</button>
+                        <a class="btn btn-small btn-primary" href="/?demo=1&view=demo">Back to demo landing</a>
+                    </div>
+                    <div id="issue-out" class="muted" style="margin-top:10px;"></div>
+                </div>
+                <div class="demo-hero-right">
+                    <div class="demo-card">
+                        <div class="demo-card-title">What to include</div>
+                        <ul>
+                            <li>What you expected vs what happened</li>
+                            <li>Steps to reproduce</li>
+                            <li>Browser/device info</li>
+                            <li>Whether you were in Demo mode</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-sections">
+            <div class="demo-section">
+                <div class="demo-section-title">Quick Notes</div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">No Sensitive Info</div>
+                        <div class="demo-tile-body">Do not include passwords, full emails, or personal data in reports.</div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Demo Diagnostics</div>
+                        <div class="demo-tile-body">If you’re using the Node server demo, you can also copy Diagnostics from the demo drawer for extra context.</div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Launch-day scope</div>
+                        <div class="demo-tile-body">This skeleton build focuses on stability and clear placeholders—report anything that blocks play.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" aria-label="Footer">
+        <div class="site-footer-inner">
+            <div class="muted">Duelist ARC — Issue reporting skeleton • May 7, 2026</div>
+            <div class="site-footer-links">
+                <a href="/?demo=1&view=demo">Demo</a>
+                <a href="/?demo=1&view=duel">Play</a>
+                <a href="feedback.html">Feedback</a>
+                <a href="status.html">Status</a>
+                <a href="dev.html">Developer</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const btn = document.getElementById('issue-copy');
+            const out = document.getElementById('issue-out');
+            const setOut = (text) => {
+                if (out instanceof HTMLElement) out.textContent = String(text || '');
+            };
+
+            const template = [
+                'Duelist ARC — Issue Report',
+                '',
+                'Summary:',
+                '- (One sentence)',
+                '',
+                'Steps to reproduce:',
+                '1) ',
+                '2) ',
+                '3) ',
+                '',
+                'Expected result:',
+                '- ',
+                '',
+                'Actual result:',
+                '- ',
+                '',
+                'Environment:',
+                `- Page: ${location.pathname}${location.search}${location.hash}`,
+                `- User agent: ${navigator.userAgent}`,
+                '',
+                'Notes:',
+                '- Demo mode on/off?',
+                '- Any console errors?',
+            ].join('\n');
+
+            btn?.addEventListener?.('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(template);
+                    setOut('Copied. Paste this into your issue tracker / message.');
+                } catch {
+                    setOut('Copy failed (clipboard blocked). Select the text in the template below and copy manually.');
+                    // Fallback: show a prompt so user can copy.
+                    try {
+                        window.prompt('Copy this issue template:', template);
+                    } catch {
+                        // ignore
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+

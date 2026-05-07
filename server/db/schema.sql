@@ -1,0 +1,46 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  handle TEXT NOT NULL UNIQUE,
+  email TEXT,
+  password_hash TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS seasons (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  start_ts INTEGER NOT NULL,
+  tournament_end_ts INTEGER NOT NULL,
+  end_ts INTEGER NOT NULL,
+  created_at INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS decks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  deck_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  created_at INTEGER NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS matches (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  season_id INTEGER NOT NULL,
+  user_a_id INTEGER NOT NULL,
+  user_b_id INTEGER NOT NULL,
+  format TEXT NOT NULL,
+  deck_a_id INTEGER,
+  deck_b_id INTEGER,
+  result_a TEXT NOT NULL,
+  counted INTEGER NOT NULL DEFAULT 1,
+  created_at INTEGER NOT NULL,
+  FOREIGN KEY(season_id) REFERENCES seasons(id) ON DELETE CASCADE,
+  FOREIGN KEY(user_a_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY(user_b_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_decks_user_id ON decks(user_id);
+CREATE INDEX IF NOT EXISTS idx_matches_season_id ON matches(season_id);

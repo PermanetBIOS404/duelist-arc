@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Duelist ARC — Developer page and demo vision." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Duelist ARC — Developer" />
+    <meta property="og:description" content="A CPU-first playable demo with a long-term vision: no ads, cosmetics, more games, and online PvP coming soon." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/logo.png" />
+    <meta name="twitter:card" content="summary" />
+    <title>Duelist ARC — Developer</title>
+    <link rel="stylesheet" href="css/style.css?v=56" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="apple-touch-icon" href="/assets/logo.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+</head>
+<body>
+    <header class="header">
+        <div class="brand">
+            <button class="brand-mascot" type="button" aria-label="Mascot (decorative)">
+                <img
+                    class="brand-mark"
+                    src="assets/mascot.png"
+                    alt="Duelist ARC mascot"
+                    loading="eager"
+                    onerror="this.onerror=null;this.src='assets/mascot-placeholder.svg';"
+                />
+            </button>
+            <div class="brand-text">
+                <h1>Duelist ARC</h1>
+                <div class="brand-sub">Developer page</div>
+            </div>
+        </div>
+        <div class="toolbar">
+            <a class="btn btn-small btn-primary" href="/" title="Back to the app">Back to app</a>
+            <a class="btn btn-small" href="/?demo=1&view=demo" title="Open the demo landing">Demo landing</a>
+            <a class="btn btn-small" href="/?demo=1&view=demo&tour=1" title="Open the demo tour">Tour</a>
+        </div>
+    </header>
+
+    <main class="demo-view">
+        <div class="demo-hero">
+            <div class="demo-hero-inner">
+                <div class="demo-hero-left">
+                    <div class="demo-kicker">Built By One Developer</div>
+                    <h2 class="demo-title">TRJGamrsRageINC — Sole Developer</h2>
+                    <div class="demo-sub">
+                        Duelist ARC is a long-term project built to feel like a hangout spot: a place to test decks, duel CPUs, build skills, and
+                        eventually compete online—without ads.
+                    </div>
+                    <div class="demo-cta">
+                        <a class="btn btn-primary" href="/?demo=1&view=duel">Play the demo</a>
+                        <a class="btn btn-small btn-primary" href="/?demo=1&view=duel&sample=classic_demo&draw=5">Load a sample + draw 5</a>
+                        <a class="btn btn-small" href="/?demo=1&view=duel">Duel a CPU</a>
+                    </div>
+                    <div class="demo-mini muted">Thank you for testing early builds and helping shape what this becomes.</div>
+                </div>
+                <div class="demo-hero-right">
+                    <div class="demo-card">
+                        <div class="demo-card-title">Build info</div>
+                        <div class="demo-sub" style="margin-top:10px;">
+                            <span class="pill pill-ok">Demo build</span>
+                            <span class="pill">May 7, 2026</span>
+                            <span class="pill">CPU-first</span>
+                            <span class="pill">No ads</span>
+                        </div>
+                        <div class="muted" style="margin-top:10px;">This page exists to explain the vision and set expectations for the demo.</div>
+                    </div>
+                    <div class="demo-card">
+                        <div class="demo-card-title">Design goals</div>
+                        <ul>
+                            <li>No ads</li>
+                            <li>Fast deck testing</li>
+                            <li>Clean UX and great performance</li>
+                            <li>Cosmetics and customization</li>
+                            <li>Expand beyond Yu-Gi-Oh over time</li>
+                        </ul>
+                    </div>
+                    <div class="demo-card">
+                        <div class="demo-card-title">What’s on the way</div>
+                        <ul>
+                            <li>Online PvP (matchmaking + friend duels)</li>
+                            <li>Custom cosmetics</li>
+                            <li>More card games</li>
+                            <li>Emulated games and other hangout features</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-sections">
+            <div class="demo-section">
+                <div class="demo-section-title">The Vision</div>
+                <div class="demo-sub" style="margin-bottom:10px;">
+                    The goal is to build a place users can call their spot—play, practice, and compete—with features that keep growing over time.
+                </div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">CPU-first gameplay</div>
+                        <div class="demo-tile-body">
+                            This demo focuses on CPU duels and deck testing so there’s always something to do while online dueling is being built.
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">A new tournament format</div>
+                        <div class="demo-tile-body">
+                            A brand new format is in development: a 3-week tournament where players compete for a top spot to become Giant Duelists,
+                            with runner-ups becoming cards in a duel.
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Inspired by classic Yu-Gi-Oh</div>
+                        <div class="demo-tile-body">
+                            Inspired by Season 1 moments where duelists found themselves as their favorite cards—facing giant versions of Yami Yugi and
+                            Yami Bakura.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">Demo Notes</div>
+                <div class="demo-sub" style="margin-bottom:10px;">
+                    This is a playable preview build. Some features are placeholders while the online systems are implemented.
+                </div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Deck upload</div>
+                        <div class="demo-tile-body">
+                            Upload `.ydk`, `.json`, or a plain-text list. For best name matching, use the server dataset (All cards) when available.
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Instant deck test</div>
+                        <div class="demo-tile-body">
+                            Shuffle and draw 5 instantly (no duel service required). This is designed to be fun and useful even when CPU duels are
+                            offline.
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">CPU duels</div>
+                        <div class="demo-tile-body">
+                            CPU duels are server-hosted when the duel service is configured. The in-browser duel field UI is coming next.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">What’s New</div>
+                <div class="demo-sub" style="margin-bottom:10px;">Recent demo improvements aimed at making this feel production-ready.</div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Demo landing + tour</div>
+                        <div class="demo-tile-body">A real first impression page with guided onboarding so testers immediately know what to do.</div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Instant deck testing</div>
+                        <div class="demo-tile-body">Upload a deck and instantly shuffle + draw 5 (even if CPU duel services are offline).</div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Sample decks</div>
+                        <div class="demo-tile-body">One-click sample decks so anyone can try the demo without files.</div>
+                    </div>
+                </div>
+                <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <a class="btn btn-small btn-primary" href="/?demo=1&view=demo&tour=1">Open the tour</a>
+                    <button id="dev-feedback" class="btn btn-small" type="button" title="Copy a feedback/bug report template">Copy feedback template</button>
+                </div>
+            </div>
+
+            <div class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">FAQ</div>
+                <div class="demo-sub" style="margin-bottom:10px;">Quick answers to the questions demo testers ask first.</div>
+
+                <details class="faq">
+                    <summary class="btn btn-small">Is online PvP available today?</summary>
+                    <div class="faq-body">
+                        Not yet. This demo is CPU-first so you can always play while real-time PvP matchmaking and friend duels are being built.
+                    </div>
+                </details>
+
+                <details class="faq">
+                    <summary class="btn btn-small">What can I do in this demo right now?</summary>
+                    <div class="faq-body">
+                        Upload a deck, shuffle + draw 5, goldfish hands, and (when configured) start a server-hosted CPU duel.
+                    </div>
+                </details>
+
+                <details class="faq">
+                    <summary class="btn btn-small">What deck formats are supported?</summary>
+                    <div class="faq-body">
+                        `.ydk`, `.json`, and plain-text lists. For best results, use the full server dataset so card names match reliably.
+                    </div>
+                </details>
+
+                <details class="faq">
+                    <summary class="btn btn-small">Will there be ads?</summary>
+                    <div class="faq-body">
+                        The intent is no ads. The project is built around being a place users actually want to hang out, not a page that fights you.
+                    </div>
+                </details>
+
+                <details class="faq">
+                    <summary class="btn btn-small">What’s the tournament/format idea?</summary>
+                    <div class="faq-body">
+                        A new format is in development: a 3-week tournament where winners become Giant Duelists, and runner-ups become cards in a duel—
+                        inspired by the early Yu-Gi-Oh vibe of “waking up as your favorite card.”
+                    </div>
+                </details>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" aria-label="Footer">
+        <div class="site-footer-inner">
+            <div class="muted">Duelist ARC • TRJGamrsRageINC • Demo build (Apr 30, 2026)</div>
+            <div class="site-footer-links">
+                <a href="/?demo=1&view=demo&tour=1&sample=classic_demo&draw=5">Start demo</a>
+                <a href="/?demo=1&view=demo">Demo</a>
+                <a href="/?demo=1&view=duel">Play</a>
+                <a href="/">App</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var btn = document.getElementById('dev-feedback');
+            if (!btn) return;
+            var copy = function (text) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    return navigator.clipboard.writeText(text);
+                }
+                prompt('Copy feedback template:', text);
+                return Promise.resolve();
+            };
+            btn.addEventListener('click', function () {
+                var now = new Date();
+                var tpl = [
+                    'Duelist ARC — Demo Feedback',
+                    'Build: Apr 30, 2026',
+                    'Page: ' + String(window.location.href),
+                    'Time: ' + now.toISOString(),
+                    'Browser: ' + String(navigator.userAgent || ''),
+                    '',
+                    'What were you trying to do?',
+                    '-',
+                    '',
+                    'What happened?',
+                    '-',
+                    '',
+                    'What did you expect?',
+                    '-',
+                    '',
+                    'Steps to reproduce (if possible):',
+                    '1)',
+                    '2)',
+                    '3)',
+                ].join('\n');
+                copy(tpl);
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "dm",
+    "name": "Dark Magician",
+    "type": "Monster",
+    "attribute": "Dark",
+    "race": "Spellcaster",
+    "archetype": "Dark Magician",
+    "level": 7,
+    "atk": 2500,
+    "def": 2100,
+    "effect": "The ultimate wizard in terms of attack and defense."
+  },
+  {
+    "id": "bewd",
+    "name": "Blue-Eyes White Dragon",
+    "type": "Monster",
+    "attribute": "Light",
+    "race": "Dragon",
+    "archetype": "Blue-Eyes",
+    "level": 8,
+    "atk": 3000,
+    "def": 2500,
+    "effect": "This legendary dragon is a powerful engine of destruction."
+  }
+]

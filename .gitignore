@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+server/node_modules/
+
+# Environment files
+.env
+server/.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# SQLite / databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Runtime data
+data/
+server/data/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Python cache
+__pycache__/
+
+# Render / deployment temp
+.render/
+
+# Local IDE
+.vscode/
+.idea/
+
+# Build/cache
+dist/
+build/
+.cache/
+
+# Large binaries / optional local resources
+resources/
+edopro/
+windbot/
+
+# Old nested copy / accidental duplicate
+yu-gi-oh-website/
+
+# Keep the required card database for production
+!server/data/
+!server/data/cards/
+!server/data/cards/all.json

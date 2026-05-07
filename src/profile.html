@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Duelist ARC — Profile (skeleton)" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Duelist ARC — Profile" />
+    <meta property="og:description" content="Launch-day skeleton: custom profile UI preview." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/logo.png" />
+    <title>Duelist ARC — Profile (Skeleton)</title>
+    <link rel="stylesheet" href="css/style.css?v=56" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="apple-touch-icon" href="/assets/logo.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+</head>
+<body>
+    <header class="header">
+        <div class="brand">
+            <button class="brand-mascot" type="button" aria-label="Mascot (decorative)">
+                <img
+                    class="brand-mark"
+                    src="assets/mascot.png"
+                    alt="Duelist ARC mascot"
+                    loading="eager"
+                    onerror="this.onerror=null;this.src='assets/mascot-placeholder.svg';"
+                />
+            </button>
+            <div class="brand-text">
+                <h1>Duelist ARC</h1>
+                <div class="brand-sub">Profile (skeleton)</div>
+            </div>
+        </div>
+        <div class="toolbar">
+            <a class="btn btn-small btn-primary" href="/" title="Back to the app">Back to app</a>
+            <a class="btn btn-small" href="/?demo=1&view=demo" title="Open the demo landing">Demo landing</a>
+            <a class="btn btn-small" href="account.html" title="Account system skeleton">Account</a>
+            <a class="btn btn-small" href="settings.html" title="Account settings skeleton">Settings</a>
+            <a class="btn btn-small" href="dev.html" title="Developer page">Developer</a>
+        </div>
+    </header>
+
+    <main class="demo-view">
+        <div class="demo-hero">
+            <div class="demo-hero-inner">
+                <div class="demo-hero-left">
+                    <div class="demo-kicker">Launch Day Skeleton</div>
+                    <h2 class="demo-title">Your Duelist Profile</h2>
+                    <div class="demo-sub">
+                        This page is a UI skeleton preview. It is not a full profile system yet (no public pages, no followers, no purchases, no rewards backend).
+                    </div>
+                    <div class="demo-cta">
+                        <a class="btn btn-primary" href="/?demo=1&view=duel">Play the demo</a>
+                        <a class="btn btn-small btn-primary" href="/?demo=1&view=duel&sample=classic_demo&draw=5">Load a sample + draw 5</a>
+                    </div>
+                </div>
+                <div class="demo-hero-right">
+                    <div class="demo-card">
+                        <div class="demo-card-title">Signed-in status</div>
+                        <div class="demo-sub" style="margin-top:10px;">
+                            <span id="profile-auth-pill" class="pill">Checking…</span>
+                            <span id="profile-handle-pill" class="pill" hidden></span>
+                        </div>
+                        <div class="muted" style="margin-top:10px;">
+                            Tip: sign in from the <a href="/?demo=1&view=duel">Duel</a> tab. This page only displays status (no email shown publicly).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-sections">
+            <div class="demo-section">
+                <div class="demo-section-title">Profile Card</div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Display</div>
+                        <div class="demo-tile-body">
+                            Avatar, banner, tagline, and seasonal identity live here. Editing UI will be enabled later.
+                        </div>
+                        <div class="demo-tile-actions">
+                            <span class="pill pill-warn">Coming Soon</span>
+                            <span class="pill">No public profile URL yet</span>
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Season Identity</div>
+                        <div class="demo-tile-body">
+                            Season badges, “Season Zero” stamp, and a clean history view (matches/tournaments) will appear here.
+                        </div>
+                        <div class="demo-tile-actions">
+                            <span class="pill pill-warn">Planned</span>
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Cosmetics (Preview)</div>
+                        <div class="demo-tile-body">
+                            Cosmetic inventory and presets will connect to your profile card. Visual-only previews for launch day.
+                        </div>
+                        <div class="demo-tile-actions">
+                            <a class="btn btn-small btn-primary" href="cosmetics.html">Open cosmetics preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section" style="margin-top:14px;">
+                <div class="demo-section-title">Privacy Notes</div>
+                <div class="demo-sub" style="margin-bottom:10px;">
+                    Launch-day safety: no email addresses are shown on this page, and nothing here implies live purchases or live rewards.
+                </div>
+                <div class="demo-grid">
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Email</div>
+                        <div class="demo-tile-body">Email attachment exists as a skeleton in the server UI. Password reset codes via email: coming soon.</div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Reserved Names</div>
+                        <div class="demo-tile-body">
+                            Some usernames are reserved (admin/mod/staff/support/system/dev/etc.) to prevent impersonation.
+                        </div>
+                    </div>
+                    <div class="demo-tile">
+                        <div class="demo-tile-title">Transparency</div>
+                        <div class="demo-tile-body">
+                            If something is a placeholder, it’s labeled as a skeleton/coming soon. No fake “feature live” claims.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" aria-label="Footer">
+        <div class="site-footer-inner">
+            <div class="muted">Duelist ARC — Profile skeleton • May 7, 2026</div>
+            <div class="site-footer-links">
+                <a href="/?demo=1&view=demo">Demo</a>
+                <a href="/?demo=1&view=duel">Play</a>
+                <a href="account.html">Account</a>
+                <a href="settings.html">Settings</a>
+                <a href="dev.html">Developer</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const pill = document.getElementById('profile-auth-pill');
+            const handlePill = document.getElementById('profile-handle-pill');
+            if (!(pill instanceof HTMLElement)) return;
+
+            const set = (label, kind) => {
+                pill.textContent = label;
+                pill.className = kind === 'ok' ? 'pill pill-ok' : kind === 'warn' ? 'pill pill-warn' : 'pill';
+            };
+
+            // Works when served from the Node server. When served via python http.server,
+            // this will fail silently and show "Offline/Local".
+            fetch('/me', { credentials: 'include' })
+                .then((r) => (r.ok ? r.json() : Promise.reject(new Error('unauthorized'))))
+                .then((data) => {
+                    const handle = String(data?.user?.handle || '').trim();
+                    if (!handle) throw new Error('no-handle');
+                    set('Signed in', 'ok');
+                    if (handlePill instanceof HTMLElement) {
+                        handlePill.hidden = false;
+                        handlePill.textContent = `@${handle}`;
+                    }
+                })
+                .catch(() => {
+                    set('Offline / Local', 'warn');
+                });
+        })();
+    </script>
+</body>
+</html>
