@@ -2,6 +2,12 @@ FROM node:24.11.0-bookworm-slim AS app
 
 WORKDIR /app
 
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY server/package.json server/package-lock.json ./server/
 RUN cd server && npm ci --omit=dev
 
