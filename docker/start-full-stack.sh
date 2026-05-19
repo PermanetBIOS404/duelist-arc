@@ -8,7 +8,7 @@ HOST_PORT="${HOST_PORT:-7911}" \
 HTTP_PORT="${HTTP_PORT:-7922}" \
 WEBSOCKET_PORT="${WEBSOCKET_PORT:-4000}" \
 NODE_ENV="${EDOPRO_NODE_ENV:-production}" \
-npm run dev &
+node ./dist/src/index.js &
 
 EDOPRO_PID="$!"
 
