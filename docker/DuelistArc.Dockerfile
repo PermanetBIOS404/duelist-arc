@@ -50,7 +50,7 @@ WORKDIR /opt/edopro/repo
 RUN bash clone_repositories.sh \
   && bash setup_resources.sh \
   && bash build_core_integrator.sh \
-  && npm ci --omit=dev --ignore-scripts
+  && npm ci --ignore-scripts
 
 COPY docker/start-full-stack.sh /usr/local/bin/start-full-stack.sh
 RUN chmod +x /usr/local/bin/start-full-stack.sh
