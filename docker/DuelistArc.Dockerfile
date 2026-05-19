@@ -58,7 +58,8 @@ RUN bash clone_repositories.sh \
   && bash build_core_integrator.sh \
   && npm ci --ignore-scripts \
   && npm run build \
-  && npm prune --omit=dev --ignore-scripts
+  && npm prune --omit=dev --ignore-scripts \
+  && npm rebuild better-sqlite3 --build-from-source
 
 COPY docker/start-full-stack.sh /usr/local/bin/start-full-stack.sh
 RUN chmod +x /usr/local/bin/start-full-stack.sh
